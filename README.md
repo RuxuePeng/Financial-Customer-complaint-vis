@@ -10,9 +10,9 @@
 + Project summary:  
   I approach the question by visualizing the dataset provided by data.gov, the Consumer Complaint Database. I cleaned the data, format the data and feed it to a new package I've found, called "rMaps". I used it to create a interactive choropleth map that allows user to look at the state by state count of financial complaints of each year(from 2011 to 2017).
   
-![image](image/2012.png)
-![image](image/2014.png)
-![image](image/2016.png)
+![image](output/2012.png)
+![image](output/2014.png)
+![image](output/2016.png)
 
 To reproduce the result:
 Main result can be reproduced from the rmaps.Rmd file in the lib forder.  
