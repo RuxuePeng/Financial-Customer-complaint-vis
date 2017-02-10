@@ -14,10 +14,14 @@
 ![image](output/2014.png)
 ![image](output/2016.png)
 
-To reproduce the result:
+To reproduce the result:  
 Main result can be reproduced from the rmaps.Rmd file in the lib forder.  
 *Before you start, please clone/download this entire project folder and set R/Rstudio working directory at the Data folder of this project*
 
-Further Learning Materials:  
-[rmaps](http://rmaps.github.io/)
-[Choropleth map](https://en.wikipedia.org/wiki/Choropleth_map)
+Further Learning Materials:    
+[rmaps](http://rmaps.github.io/)  
+[Choropleth map](https://en.wikipedia.org/wiki/Choropleth_map)  
+
+Thanks you for reading this little data story:)  
+
+
