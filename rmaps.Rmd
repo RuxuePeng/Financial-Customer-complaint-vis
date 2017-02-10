@@ -1,0 +1,69 @@
+---
+title: "Visualizaing Consumer financial complaints by rMaps"
+author: "Ruxue Peng, Columbia UNI rp2815"
+date: "February 10, 2017"
+output: 
+  html_document: default
+  html_notebook: default
+---
+#Step 0:check and install needed packages. Load the libraries and functions. 
+*Before you start, please set working directory at the data folder of this project.
+```{r}
+#install rMaps
+require(devtools)
+install_github('ramnathv/rCharts@dev')
+install_github('ramnathv/rMaps')
+#install rCharts
+require(devtools)
+install_github('ramnathv/rCharts')
+#Install other needed packages
+packages.used=c("rjson","sqldf","lubridate")
+
+# check packages that need to be installed.
+packages.needed=setdiff(packages.used, 
+                        intersect(installed.packages()[,1], 
+                                  packages.used))
+# install additional packages
+if(length(packages.needed)>0){
+  install.packages(packages.needed, dependencies = TRUE)
+}
+
+#libraries to load
+library(rMaps) #Mapping package
+library(rCharts) #rcharts needed by rMaps
+library(sqldf) #filter and manipulate the data as needed
+library(lubridate) #clean up the dates as quickly as possible
+```
+
+#STEP 1: Data Preparation
+*Code below takes consumer complaints with financial products 
+*and plots an ichoropleth map showing state by state issue counts over years.
+```{r}
+#(1)downlaod the dataset from data.dov
+#might be a bit slow since the file is 270M
+URL = "https://data.consumerfinance.gov/api/views/s6ew-h6mp/rows.csv?accessType=DOWNLOAD"
+download.file(URL, destfile = "./data.csv", method="auto")
+#(2)Read the data 
+myData <- read.csv2("data.csv",header = TRUE, sep = ",", quote = "\"")
+#(3)clean up
+myData$Date.received <- as.character(year(mdy(myData$Date.received)))
+#aggregate to state and year
+plotData <- sqldf("select count(*) as Count, State, \"Date.received\" as Year from myData group by State, 
+\"Date.received\" having State <> '' ")
+plotData$Year <- as.integer(plotData$Year)
+plotData$State <- as.character(plotData$State)
+```
+#STEP3: Visualization-choropleth_map
+```{r}
+#Call rMaps and output map
+#set date for the ichoropleth map
+library("rMaps")
+d1 <- ichoropleth(Count ~ State, 
+                  data = plotData, 
+                  ncuts = 8, 
+                  pal = 'GnBu',
+                  animate = 'Year')
+d1$save('financial complaints-rMaps.html', cdn = TRUE)
+#Now the interactive map is saved as html file in the data folder
+```
+
