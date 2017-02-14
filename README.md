@@ -1,5 +1,5 @@
 # Spring 2017
-# Project for myself: Which are the states that have the most financial complaints each year?
+# Project for myself: What are the states having the most financial complaints each year?
 
 ![image](head.png)
 
